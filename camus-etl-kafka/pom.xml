@@ -33,6 +33,10 @@
 			<artifactId>hadoop-core</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-common</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>kafka</groupId>
 			<artifactId>kafka</artifactId>
 		</dependency>
@@ -74,20 +78,64 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.avro</groupId>
-				<artifactId>avro-maven-plugin</artifactId>
-				<version>1.7.0</version>
-				<executions> 
- 					 <execution> <id>schemas</id> <phase>generate-sources</phase> <goals>  
- 						<goal>schema</goal> <goal>protocol</goal> <goal>idl-protocol</goal> </goals>  
- 						<configuration> <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory> 
- 						<outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
-						<lifecycleMappingMetadata> <action> <ignore /> </action> </lifecycleMappingMetadata></configuration> 
- 						</execution> 
- 				</executions> 
-			</plugin>
-		</plugins>
+	<plugin>
+		<groupId>org.apache.avro</groupId>
+		<artifactId>avro-maven-plugin</artifactId>
+		<version>1.7.0</version>
+		<executions>
+			<execution>
+				<id>schemas</id>
+				<phase>generate-sources</phase>
+				<goals>
+					<goal>schema</goal>
+					<goal>protocol</goal>
+					<goal>idl-protocol</goal>
+				</goals>
+				<configuration>
+					<sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
+					<outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
+					<lifecycleMappingMetadata>
+						<action>
+							<ignore />
+						</action>
+					</lifecycleMappingMetadata>
+				</configuration>
+			</execution>
+		</executions>
+	</plugin>
+</plugins>
+
+<pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.avro</groupId>
+                    <artifactId>avro-maven-plugin</artifactId>
+                    <versionRange>[${avro.version},)</versionRange>
+                    <goals>
+                      <goal>schema</goal>
+					<goal>protocol</goal>
+					<goal>idl-protocol</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                </pluginExecutions>
+                </lifecycleMappingMetadata>
+                </configuration>
+                </plugin>
+                </plugins>
+                </pluginManagement>
+                
 	</build>
 
 </project>
